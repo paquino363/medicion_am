@@ -538,7 +538,18 @@ class MainWindow(QMainWindow):
 
     def show_about(self):
 
-        QMessageBox.information(self,"AM Lab","AM Lab\nControl SCPI de\ngenerador + osciloscopio")
+        QMessageBox.about(
+        self,
+        "AM Lab",
+        """
+        <p>Control SCPI de generador + osciloscopio.</p>
+        <p>
+            <a href="https://github.com/paquino363/medicion_am">
+                Repositorio GitHub
+            </a>
+        </p>
+        """
+    )
 
     #################################################################
 
