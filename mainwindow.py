@@ -447,8 +447,6 @@ class MainWindow(QMainWindow):
         #################################################################
 
     def create_menu(self):
-    
-        menuArchivo = self.menuBar().addMenu("Archivo")
 
         menuInstrumentos = self.menuBar().addMenu("Instrumentos")
 
@@ -467,8 +465,6 @@ class MainWindow(QMainWindow):
         self.actionAutoset = QAction("Autoset", self)
 
         ########################################
-
-        menuArchivo.addAction(self.actionSalir)
 
         menuInstrumentos.addAction(self.actionConnectGenerator)
 
