@@ -440,22 +440,16 @@ class MainWindow(QMainWindow):
 
         ##########################################
 
-        self.create_menu()
-
         self.create_toolbar()
 
-        #################################################################
+        ##########################################
 
-    def create_menu(self):
-
-        menuInstrumentos = self.menuBar().addMenu("Instrumentos")
-
-        menuAyuda = self.menuBar().addMenu("Ayuda")
-
-        ########################################
+        
+    
+    def create_toolbar(self):
 
         self.actionSalir = QAction("Salir", self)
-
+        
         self.actionConnectGenerator = QAction("Conectar Generador", self)
 
         self.actionConnectScope = QAction("Conectar Osciloscopio", self)
@@ -465,17 +459,7 @@ class MainWindow(QMainWindow):
         self.actionAutoset = QAction("Autoset", self)
 
         ########################################
-
-        menuInstrumentos.addAction(self.actionConnectGenerator)
-
-        menuInstrumentos.addAction(self.actionConnectScope)
-
-        menuInstrumentos.addAction(self.actionAutoset)
-
-        menuAyuda.addAction(self.actionAbout)
-
-        ########################################
-
+        
         self.actionSalir.triggered.connect(self.close)
 
         self.actionConnectGenerator.triggered.connect(self.connect_generator)
@@ -487,8 +471,6 @@ class MainWindow(QMainWindow):
         self.actionAutoset.triggered.connect(self.scope.autoset)
         
         #################################################################
-    
-    def create_toolbar(self):
 
         tb = self.addToolBar("Principal")
 
@@ -501,6 +483,8 @@ class MainWindow(QMainWindow):
         tb.addSeparator()
 
         tb.addAction(self.actionAutoset)
+
+        tb.addAction(self.actionAbout)
 
         tb.addAction(self.actionSalir)
 
