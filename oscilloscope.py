@@ -7,8 +7,7 @@ class TBS1202B:
 
     def __init__(self):
 
-        self.rm = pyvisa.ResourceManager("@sim")
-        #self.rm = pyvisa.ResourceManager("@py")
+        self.rm = pyvisa.ResourceManager("@py")
 
         self.visa_mutex = QMutex(QMutex.Recursive)
 

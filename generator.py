@@ -5,8 +5,7 @@ class AFG1022:
 
     def __init__(self):
 
-        self.rm = pyvisa.ResourceManager("@sim")
-        #self.rm = pyvisa.ResourceManager("@py")
+        self.rm = pyvisa.ResourceManager("@py")
 
         self.inst = None
 
