@@ -1,6 +1,5 @@
 import pyvisa
 import numpy as np
-from PyQt5.QtCore import QMutex
 
 
 class TBS1202B:
@@ -8,8 +7,6 @@ class TBS1202B:
     def __init__(self):
 
         self.rm = pyvisa.ResourceManager("@py")
-
-        self.visa_mutex = QMutex(QMutex.Recursive)
 
         self.inst = None
 
@@ -120,38 +117,32 @@ class TBS1202B:
         if not self.connected:
             return None, None
 
-        self.visa_mutex.lock()
+        ######################################################
+        # Leer parámetros de escalado
+        ######################################################
 
-        try:
+        ymult, yzero, yoff, xincr = self.read_preamble()
 
-            ######################################################
-            # Leer parámetros de escalado
-            ######################################################
+        ######################################################
+        # Leer datos binarios
+        ######################################################
 
-            ymult, yzero, yoff, xincr = self.read_preamble()
+        raw = self.inst.query_binary_values("CURVE?",datatype='B',container=np.array)
 
-            ######################################################
-            # Leer datos binarios
-            ######################################################
+        ######################################################
+        # Convertir a Voltios
+        ######################################################
 
-            raw = self.inst.query_binary_values("CURVE?",datatype='B',container=np.array)
+        y = (raw - yoff) * ymult + yzero
 
-            ######################################################
-            # Convertir a Voltios
-            ######################################################
+        ######################################################
+        # Vector tiempo
+        ######################################################
 
-            y = (raw - yoff) * ymult + yzero
+        x = np.arange(len(y)) * xincr
 
-            ######################################################
-            # Vector tiempo
-            ######################################################
+        return x, y
 
-            x = np.arange(len(y)) * xincr
-
-            return x, y
-
-        finally:
-            self.visa_mutex.unlock()
 
         #########################################################
 
@@ -191,13 +182,9 @@ class TBS1202B:
     
 
     def set_time_scale(self, time_per_div):
-
-        self.visa_mutex.lock()
         
-        try:
-            self.inst.write(f":HORizontal:MAIn:SCAle {time_per_div}")
-        finally:
-            self.visa_mutex.unlock()
+        self.inst.write(f":HORizontal:MAIn:SCAle {time_per_div}")
+
         
 
     def get_voltage_scale(self, channel=1):
@@ -212,12 +199,8 @@ class TBS1202B:
 
     def autoset(self):
 
-        self.visa_mutex.lock()
+        self.inst.write("AUTOSET EXECUTE")
 
-        try:
-            self.inst.write("AUTOSET EXECUTE")
-        finally:
-            self.visa_mutex.unlock()
 
 
     def measure_am_fft(self, fc, fm, x, y, r):
