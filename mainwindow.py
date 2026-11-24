@@ -19,7 +19,7 @@ class MainWindow(QMainWindow):
 
         super().__init__()
 
-        self.setWindowTitle("AM Lab")
+        self.setWindowTitle("Medición AM")
         self.resize(1500,900)
 
         # Instrumentos
@@ -520,7 +520,7 @@ class MainWindow(QMainWindow):
 
         QMessageBox.about(
         self,
-        "AM Lab",
+        "Medición AM",
         """
         <p>Control SCPI de generador + osciloscopio.</p>
         <p>

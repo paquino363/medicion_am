@@ -1,4 +1,4 @@
-# AM Lab
+# Medición automática de moduladores AM
 
 Aplicación de escritorio desarrollada en **Python** para el control de instrumentos electrónicos mediante SCPI y el análisis de señales de **modulación de amplitud (AM)**.
 
